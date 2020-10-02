@@ -68,8 +68,10 @@ internal final class InboundSendEmailHandler: ChannelInboundHandler {
                 self.send(context: context, command: .startTls)
                 self.currentlyWaitingFor = .okAfterStartTls
             } else {
-                self.send(context: context, command: .beginAuthentication)
-                self.currentlyWaitingFor = .okAfterAuthBegin
+                //self.send(context: context, command: .beginAuthentication)
+                //self.currentlyWaitingFor = .okAfterAuthBegin
+                self.send(context: context, command: .mailFrom(self.email.from.address))
+                self.currentlyWaitingFor = .okAfterMailFrom
             }
 
         case .okAfterStartTls:
